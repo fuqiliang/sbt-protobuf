@@ -1,3 +1,21 @@
+
+# Why set up this project
+
+This plugin is copied from sbt/sbt-protobuf, and changed to compile **file by file**.
+For example, you have a.proto, b.proto, c.proto in src/main/protobuf, then
+
+In sbt/sbt-protobuf, the compile command would be proto -I[includePath] --java_out[output_path] src/main/protobuf/a.proto src/main/protobuf/b.proto src/main/protobuf/c.proto
+
+When we have the same class name defined in different package name, e.g. com.package.a.ClassA in a.protobuf, com.package.b.ClassA in b.protobuf, the command would throw error of xxx is already define in xxx.
+
+In fuqiliang/sbt-protobuf, the compile command would splited to seperate proto file, thus compile file by file
+proto -I[includePath] --java_out[output_path] src/main/protobuf/a.proto
+proto -I[includePath] --java_out[output_path] src/main/protobuf/b.proto
+proto -I[includePath] --java_out[output_path] src/main/protobuf/c.proto
+
+Then we got no error and can compile successfully.
+
+
 # sbt-protobuf
 A plugin for sbt that transforms *.proto files into gazillion-loc Java source files, and potentially to other languages too.
 
@@ -10,8 +28,9 @@ A plugin for sbt that transforms *.proto files into gazillion-loc Java source fi
 In your project, create a file for plugin library dependencies `project/plugins.sbt` and add the following line:
 
 ```scala
-addSbtPlugin("com.github.gseitz" % "sbt-protobuf" % "0.6.3")
+addSbtPlugin("com.github.fuqiliang" % "sbt-protobuf" % "0.6.3-appschema")
 ```
+Waiting for oss upload confirm......
 
 The dependency to `"com.google.protobuf" % "protobuf-java"` is automatically added to the `Compile` scope.
 The version for `protobuf-java` can be controlled by the setting `version in ProtobufConfig` (set to `3.4.0` by default).
