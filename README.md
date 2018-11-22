@@ -4,14 +4,19 @@
 This plugin is copied from sbt/sbt-protobuf, and changed to compile **file by file**.
 For example, you have a.proto, b.proto, c.proto in src/main/protobuf, then
 
-In sbt/sbt-protobuf, the compile command would be proto -I[includePath] --java_out[output_path] src/main/protobuf/a.proto src/main/protobuf/b.proto src/main/protobuf/c.proto
+In sbt/sbt-protobuf, the compile command would be
+```
+proto -I[includePath] --java_out[output_path] src/main/protobuf/a.proto src/main/protobuf/b.proto src/main/protobuf/c.proto
+```
 
-When we have the same class name defined in different package name, e.g. com.package.a.ClassA in a.protobuf, com.package.b.ClassA in b.protobuf, the command would throw error of xxx is already define in xxx.
+When we have the same class name defined in different package name, e.g. com.package.a.ClassA in a.protobuf, com.package.b.ClassA in b.protobuf, the command would throw error of ClassA is already define in xxx.
 
 In fuqiliang/sbt-protobuf, the compile command would splited to seperate proto file, thus compile file by file
+```
 proto -I[includePath] --java_out[output_path] src/main/protobuf/a.proto
 proto -I[includePath] --java_out[output_path] src/main/protobuf/b.proto
 proto -I[includePath] --java_out[output_path] src/main/protobuf/c.proto
+```
 
 Then we got no error and can compile successfully.
 
