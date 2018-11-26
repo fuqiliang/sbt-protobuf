@@ -1,6 +1,6 @@
 import sbtrelease.ReleaseStateTransformations._
 
-organization := "com.github.gseitz"
+organization := "com.github.fuqiliang"
 
 name := "sbt-protobuf"
 
@@ -20,7 +20,7 @@ scalacOptions in (Compile, doc) ++= {
 
 sbtPlugin := true
 
-publishMavenStyle := false
+publishMavenStyle := true
 
 bintrayOrganization := Some("sbt")
 
@@ -53,3 +53,30 @@ releaseProcess := Seq[ReleaseStep](
   commitNextVersion,
   pushChanges
 )
+
+//add for sbt-sonatype
+useGpg := true
+publishTo := sonatypePublishTo.value
+publishArtifact in Test := false
+pomIncludeRepository := { _ => false }
+pomExtra in Global := {
+  <url>https://github.com/fuqiliang/sbt-protobuf</url>
+    <licenses>
+      <license>
+        <name>Apache 2</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      </license>
+    </licenses>
+    <scm>
+      <url>fuqiliang@github.com:fuqiliang/sbt-protobuf.git</url>
+      <connection>scm:git:fuqiliang@github.com:fuqiliang/sbt-protobuf.git</connection>
+    </scm>
+    <developers>
+      <developer>
+        <id>fuqiliang</id>
+        <name>fuqiliang</name>
+        <url>https://github.com/fuqiliang/</url>
+      </developer>
+    </developers>
+}
+

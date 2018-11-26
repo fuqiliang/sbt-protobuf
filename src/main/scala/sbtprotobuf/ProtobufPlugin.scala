@@ -110,11 +110,22 @@ class ScopedProtobufPlugin(configuration: Configuration, private[sbtprotobuf] va
       log.info("Compiling %d protobuf files to %s".format(schemas.size, generatedTargetDirs.mkString(",")))
       log.debug("protoc options:")
       protocOptions.map("\t"+_).foreach(log.debug(_))
-      schemas.foreach(schema => log.info("Compiling schema %s" format schema))
+//      schemas.foreach(schema => log.info("Compiling schema %s" format schema))
+//
+//      val exitCode = executeProtoc(protocCommand, schemas, includePaths, protocOptions, log)
+//      if (exitCode != 0)
+//        sys.error("protoc returned exit code: %d" format exitCode)
 
-      val exitCode = executeProtoc(protocCommand, schemas, includePaths, protocOptions, log)
-      if (exitCode != 0)
-        sys.error("protoc returned exit code: %d" format exitCode)
+      // yujyang
+      // changed to compile file by file for the same class name within different package may result in error in one protobuf command
+      schemas.foreach(schema => {
+        log.info("Now Compiling schema %s" format schema)
+        val currentSchema = Set(schema)
+        val exitCode = executeProtoc(protocCommand, currentSchema, includePaths, protocOptions, log)
+        if (exitCode != 0)
+          sys.error("protoc returned exit code: %d" format exitCode)
+      })
+
 
       log.info("Compiling protobuf")
       generatedTargetDirs.foreach{ dir =>
