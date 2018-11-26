@@ -35,7 +35,8 @@ In your project, create a file for plugin library dependencies `project/plugins.
 ```scala
 addSbtPlugin("com.github.fuqiliang" % "sbt-protobuf" % "0.6.3-appschema")
 ```
-Waiting for oss upload confirm......
+
+OSSRH Ticket link: https://issues.sonatype.org/browse/OSSRH-44290
 
 The dependency to `"com.google.protobuf" % "protobuf-java"` is automatically added to the `Compile` scope.
 The version for `protobuf-java` can be controlled by the setting `version in ProtobufConfig` (set to `3.4.0` by default).
