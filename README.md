@@ -33,7 +33,8 @@ A plugin for sbt that transforms *.proto files into gazillion-loc Java source fi
 In your project, create a file for plugin library dependencies `project/plugins.sbt` and add the following line:
 
 ```scala
-addSbtPlugin("com.github.fuqiliang" % "sbt-protobuf" % "0.6.3-appschema")
+resolvers ++= Seq("Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/groups/public")
+addSbtPlugin("com.github.fuqiliang" % "sbt-protobuf" % "0.6.4-appschema")
 ```
 
 OSSRH Ticket link: https://issues.sonatype.org/browse/OSSRH-44290
